@@ -1,6 +1,6 @@
 <!-- Kontak -->
 <footer id="kontak" class="bg-blue-600 text-white py-12">
-    <div class="mx-auto max-w-screen-xl px-6 md:px-20">
+    <div class="mx-auto max-w-7xl px-6 md:px-0">
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
             <!-- Brand -->
             <div>

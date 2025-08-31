@@ -1,6 +1,6 @@
 <!-- Hero Section -->
-<section class="relative w-full h-screen flex items-center justify-center bg-cover bg-center"
-    style="background-image: url('{{ asset('image/image1.jpg') }}');">
+<section class="relative w-full h-screen flex items-center justify-center bg-cover bg-center md:bg-top mt-10 md:mt-0"
+    style="background-image: url('{{ asset('image/image5.jpeg') }}');">
     <div class="absolute inset-0 bg-blue-900/40"></div>
     <div class="relative z-10 text-center max-w-3xl px-6">
         <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">SWOR</h1>
