@@ -1,19 +1,19 @@
 <!-- Kontak -->
 <footer id="kontak" class="bg-blue-600 text-white py-12">
     <div class="mx-auto max-w-7xl px-6 md:px-0">
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <!-- Brand -->
+
+        <!-- Grid 2 kolom -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- Kolom 1: SWOR + Kontak -->
             <div>
                 <h2 class="text-2xl font-bold">SWOR</h2>
                 <p class="mt-2 text-sm text-blue-100">
                     SWOR Monitoring & Control System <br />
                     Universitas Dian Nuswantoro
                 </p>
-            </div>
 
-            <!-- Kontak -->
-            <div>
-                <h3 class="mb-4 text-lg font-semibold">Kontak</h3>
+                <h3 class="mt-6 mb-4 text-lg font-semibold">Kontak</h3>
                 <ul class="space-y-3 text-sm">
                     <li class="flex items-center gap-3">
                         <!-- Instagram -->
@@ -41,6 +41,23 @@
                         <span>sworudinus@gmail.com</span>
                     </li>
                 </ul>
+            </div>
+
+            <!-- Kolom 2: Alamat + Map -->
+            <div>
+                <h3 class="mb-2 text-lg font-semibold">Alamat</h3>
+                <p class="text-sm text-blue-100 mb-4">
+                    Universitas Dian Nuswantoro <br>
+                    Jl. Imam Bonjol No.207, Pendrikan Kidul, <br>
+                    Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50131
+                </p>
+                <div class="w-full h-52 rounded-lg overflow-hidden shadow-lg">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.2256286884576!2d110.40906059999999!3d-6.9826794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b4ec52229d7%3A0xc791d6abc9236c7!2sUniversitas%20Dian%20Nuswantoro!5e0!3m2!1sid!2sid!4v1756655151271!5m2!1sid!2sid"
+                        class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
             </div>
         </div>
 
