@@ -24,29 +24,6 @@
                 <p class="text-gray-500">Teknik Biomedis</p>
             </div>
             <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center">
-                <img src="{{ asset('image/thoby.jpg') }}" alt="Thoby Akhmad Fahrezy"
-                    class="w-28 h-28 rounded-full object-cover mb-4 shadow" />
-                <h3 class="font-semibold text-lg text-blue-700">Thoby Akhmad Fahrezy</h3>
-                <p class="text-gray-600">E13.2022.00229</p>
-                <p class="text-gray-500">Teknik Biomedis</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center">
-                <img src="{{ asset('image/surya.jpg') }}" alt="Surya Ganang Syahputra"
-                    class="w-28 h-28 rounded-full object-cover mb-4 shadow" />
-                <h3 class="font-semibold text-lg text-blue-700">Surya Ganang Syahputra</h3>
-                <p class="text-gray-600">E11.2023.01197</p>
-                <p class="text-gray-500">Teknik Elektro</p>
-            </div>
-
-            <!-- Row 3: 3 orang full -->
-            <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center">
-                <img src="{{ asset('image/farhan.jpg') }}" alt="Farhan Nafsi Zein Abadan"
-                    class="w-28 h-28 rounded-full object-cover mb-4 shadow" />
-                <h3 class="font-semibold text-lg text-blue-700">Farhan Nafsi Zein Abadan</h3>
-                <p class="text-gray-600">E11.2023.01195</p>
-                <p class="text-gray-500">Teknik Elektro</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center">
                 <img src="{{ asset('image/nurul.jpg') }}" alt="Nurul Khasanah"
                     class="w-28 h-28 rounded-full object-cover mb-4 shadow" />
                 <h3 class="font-semibold text-lg text-blue-700">Nurul Khasanah</h3>
@@ -59,6 +36,29 @@
                 <h3 class="font-semibold text-lg text-blue-700">Elisabet Cantika Dhana</h3>
                 <p class="text-gray-600">E13.2023.00284</p>
                 <p class="text-gray-500">Teknik Biomedis</p>
+            </div>
+
+            <!-- Row 3: 3 orang full -->
+            <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center">
+                <img src="{{ asset('image/farhan.jpg') }}" alt="Farhan Nafsi Zein Abadan"
+                    class="w-28 h-28 rounded-full object-cover mb-4 shadow" />
+                <h3 class="font-semibold text-lg text-blue-700">Farhan Nafsi Zein Abadan</h3>
+                <p class="text-gray-600">E11.2023.01195</p>
+                <p class="text-gray-500">Teknik Elektro</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center">
+                <img src="{{ asset('image/thoby.jpg') }}" alt="Thoby Akhmad Fahrezy"
+                    class="w-28 h-28 rounded-full object-cover mb-4 shadow" />
+                <h3 class="font-semibold text-lg text-blue-700">Thoby Akhmad Fahrezy</h3>
+                <p class="text-gray-600">E13.2022.00229</p>
+                <p class="text-gray-500">Teknik Biomedis</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center">
+                <img src="{{ asset('image/surya.jpg') }}" alt="Surya Ganang Syahputra"
+                    class="w-28 h-28 rounded-full object-cover mb-4 shadow" />
+                <h3 class="font-semibold text-lg text-blue-700">Surya Ganang Syahputra</h3>
+                <p class="text-gray-600">E11.2023.01197</p>
+                <p class="text-gray-500">Teknik Elektro</p>
             </div>
         </div>
     </div>
