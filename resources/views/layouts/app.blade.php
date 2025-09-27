@@ -8,7 +8,7 @@
 
     <link rel="icon" type="image/png" href="{{ asset('image/logo_remove.png') }}" />
 
-    <title>{{ config('app.name', 'SWOR') }}</title>
+    <title>{{ config('app.name', 'SWOR - Shoulder Wheel for Optimal Rehabilitation') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
