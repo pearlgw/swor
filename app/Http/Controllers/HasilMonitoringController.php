@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\HasilMonitoring;
 use App\Models\Pasien;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HasilMonitoringController extends Controller
 {
     public function index(Request $request)
     {
-        $query = HasilMonitoring::with(['pasien', 'user']);
+        if (Auth::user()->is_admin) {
+            $query = HasilMonitoring::with(['pasien', 'user']);
+        } else {
+            $query = HasilMonitoring::with(['pasien', 'user'])->where("dokter_id", Auth::id())->orWhereNull('dokter_id', null);
+        }
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -44,6 +48,8 @@ class HasilMonitoringController extends Controller
             'tinggi_shoulder'    => 'nullable|numeric',
             'sudut_tangan'       => 'nullable|numeric',
             'kecepatan'          => 'nullable|numeric',
+            'mode'               => 'nullable|string',
+            'mode_tangan'        => 'nullable|string',
             'jenis_terapi'       => 'nullable|string|max:255',
             'frekuensi_latihan'  => 'nullable|integer',
             'durasi_sesi'        => 'nullable|integer',
@@ -89,6 +95,8 @@ class HasilMonitoringController extends Controller
             'tinggi_shoulder'    => 'nullable|numeric',
             'sudut_tangan'       => 'nullable|numeric',
             'kecepatan'          => 'nullable|numeric',
+            'mode'               => 'nullable|string',
+            'mode_tangan'        => 'nullable|string',
             'jenis_terapi'       => 'nullable|string|max:255',
             'frekuensi_latihan'  => 'nullable|numeric',
             'durasi_sesi'        => 'nullable|numeric',

@@ -6,19 +6,26 @@ use App\Models\HasilMonitoring;
 use App\Models\Pasien;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PasienController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Pasien::query();
+        if (Auth::user()->is_admin) {
+            $query = Pasien::query();
+        } else {
+            $query = Pasien::query()->where('dokter_id', Auth::id());
+        }
 
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where('nama', 'like', "%{$search}%")
-                ->orWhere('kode_pasien', 'like', "%{$search}%");
-            // ->orWhere('diagnosa_utama', 'like', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                    ->orWhere('kode_pasien', 'like', "%{$search}%");
+                // ->orWhere('diagnosa_utama', 'like', "%{$search}%");
+            });
         }
 
         $pasiens = $query->latest()->paginate(10)->withQueryString();

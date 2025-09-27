@@ -38,6 +38,16 @@
                     </div>
 
                     <div>
+                        <p class="text-gray-500">Mode</p>
+                        <p class="font-semibold">{{ $monitoring->mode ?? '-' }}</p>
+                    </div>
+
+                    <div>
+                        <p class="text-gray-500">Mode Tangan</p>
+                        <p class="font-semibold">{{ $monitoring->mode_tangan ?? '-' }}</p>
+                    </div>
+
+                    <div>
                         <p class="text-gray-500">Jenis Terapi</p>
                         <p class="font-semibold">{{ $monitoring->jenis_terapi ?? '-' }}</p>
                     </div>

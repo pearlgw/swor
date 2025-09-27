@@ -29,22 +29,25 @@
                         @enderror
                     </div>
 
-                    {{-- Dokter --}}
-                    <div>
-                        <label class="block font-medium">Dokter</label>
-                        <select name="dokter_id" class="w-full rounded border-gray-300">
-                            <option value="">-- Pilih Dokter --</option>
-                            @foreach ($dokters as $dokter)
-                                <option value="{{ $dokter->id }}"
-                                    {{ old('dokter_id', $monitoring->dokter_id) == $dokter->id ? 'selected' : '' }}>
-                                    {{ $dokter->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('dokter_id')
-                            <p class="text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    @if (Auth::user()->is_admin === 0)
+                        <input type="hidden" name="dokter_id" value="{{ $monitoring->dokter_id ?? Auth::id() }}">
+                    @elseif (Auth::user()->is_admin === 1)
+                        <div>
+                            <label class="block font-medium">Dokter</label>
+                            <select name="dokter_id" class="w-full rounded border-gray-300">
+                                <option value="">-- Pilih Dokter --</option>
+                                @foreach ($dokters as $dokter)
+                                    <option value="{{ $dokter->id }}"
+                                        {{ old('dokter_id', $monitoring->dokter_id) == $dokter->id ? 'selected' : '' }}>
+                                        {{ $dokter->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('dokter_id')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    @endif
 
                     {{-- Tinggi Shoulder --}}
                     <div>
@@ -66,6 +69,18 @@
                         <label class="block font-medium">Kecepatan</label>
                         <input type="number" step="0.01" name="kecepatan" class="w-full rounded border-gray-300"
                             value="{{ old('kecepatan', $monitoring->kecepatan) }}">
+                    </div>
+
+                    <div>
+                        <label class="block font-medium">Mode</label>
+                        <input type="text" name="mode" class="w-full rounded border-gray-300"
+                            value="{{ old('mode', $monitoring->mode) }}">
+                    </div>
+
+                    <div>
+                        <label class="block font-medium">Mode Tangan</label>
+                        <input type="text" name="mode_tangan" class="w-full rounded border-gray-300"
+                            value="{{ old('mode_tangan', $monitoring->mode_tangan) }}">
                     </div>
 
                     {{-- Jenis Terapi --}}

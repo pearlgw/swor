@@ -40,10 +40,15 @@
                     class="w-full block px-4 py-2 rounded-lg hover:bg-blue-50">
                     Dashboard
                 </x-nav-link>
-                <x-nav-link :href="route('dokter.index')" :active="request()->routeIs('dokter.index')"
-                    class="w-full block px-4 py-2 rounded-lg hover:bg-blue-50">
-                    Dokter
-                </x-nav-link>
+                @auth
+                    @if (Auth::user()->is_admin)
+                        <x-nav-link :href="route('dokter.index')" :active="request()->routeIs('dokter.index')"
+                            class="w-full block px-4 py-2 rounded-lg hover:bg-blue-50">
+                            Dokter
+                        </x-nav-link>
+                    @endif
+                @endauth
+
                 <x-nav-link :href="route('pasien.index')" :active="request()->routeIs('pasien.index')"
                     class="w-full block px-4 py-2 rounded-lg hover:bg-blue-50">
                     Pasien
