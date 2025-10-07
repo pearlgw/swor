@@ -52,7 +52,7 @@
                     {{-- Tinggi Shoulder --}}
                     <div>
                         <label class="block font-medium">Tinggi Shoulder (cm)</label>
-                        <input type="number" step="0.01" name="tinggi_shoulder"
+                        <input type="number" step="0.01" name="tinggi_shoulder" min="1" max="85"
                             class="w-full rounded border-gray-300"
                             value="{{ old('tinggi_shoulder', $monitoring->tinggi_shoulder) }}">
                     </div>
@@ -61,17 +61,17 @@
                     <div>
                         <label class="block font-medium">Sudut Tangan (°)</label>
                         <input type="number" step="0.01" name="sudut_tangan" class="w-full rounded border-gray-300"
-                            value="{{ old('sudut_tangan', $monitoring->sudut_tangan) }}">
+                            min="1" max="180" value="{{ old('sudut_tangan', $monitoring->sudut_tangan) }}">
                     </div>
 
                     {{-- Kecepatan --}}
                     <div>
                         <label class="block font-medium">Kecepatan</label>
                         <input type="number" step="0.01" name="kecepatan" class="w-full rounded border-gray-300"
-                            value="{{ old('kecepatan', $monitoring->kecepatan) }}">
+                            min="1" max="20" value="{{ old('kecepatan', $monitoring->kecepatan) }}">
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label class="block font-medium">Mode</label>
                         <input type="text" name="mode" class="w-full rounded border-gray-300"
                             value="{{ old('mode', $monitoring->mode) }}">
@@ -81,6 +81,30 @@
                         <label class="block font-medium">Mode Tangan</label>
                         <input type="text" name="mode_tangan" class="w-full rounded border-gray-300"
                             value="{{ old('mode_tangan', $monitoring->mode_tangan) }}">
+                    </div> --}}
+
+                    <div>
+                        <label class="block font-medium">Mode</label>
+                        <select name="mode" class="w-full rounded border-gray-300">
+                            <option value="">-- Pilih Mode --</option>
+                            <option value="Pasif" {{ old('mode', $monitoring->mode) == 'Pasif' ? 'selected' : '' }}>
+                                Pasif</option>
+                            <option value="Aktif" {{ old('mode', $monitoring->mode) == 'Aktif' ? 'selected' : '' }}>
+                                Aktif</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium">Mode Tangan</label>
+                        <select name="mode_tangan" class="w-full rounded border-gray-300">
+                            <option value="">-- Pilih Tangan --</option>
+                            <option value="Kanan"
+                                {{ old('mode_tangan', $monitoring->mode_tangan) == 'Kanan' ? 'selected' : '' }}>Kanan
+                            </option>
+                            <option value="Kiri"
+                                {{ old('mode_tangan', $monitoring->mode_tangan) == 'Kiri' ? 'selected' : '' }}>Kiri
+                            </option>
+                        </select>
                     </div>
 
                     {{-- Jenis Terapi --}}
