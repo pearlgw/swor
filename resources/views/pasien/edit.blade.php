@@ -61,18 +61,22 @@
                             value="{{ old('tanggal_mulai_terapi', $pasien->tanggal_mulai_terapi) }}">
                     </div>
 
-                    <div>
-                        <label class="block font-medium">Dokter</label>
-                        <select name="dokter_id" class="w-full rounded border-gray-300">
-                            <option value="">-- Pilih Dokter --</option>
-                            @foreach ($dokters as $dokter)
-                                <option value="{{ $dokter->id }}"
-                                    {{ old('dokter_id', $pasien->dokter_id) == $dokter->id ? 'selected' : '' }}>
-                                    {{ $dokter->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @if (Auth::user()->is_admin === 0)
+                        <input type="hidden" name="dokter_id">
+                    @elseif (Auth::user()->is_admin === 1)
+                        <div>
+                            <label class="block font-medium">Dokter</label>
+                            <select name="dokter_id" class="w-full rounded border-gray-300">
+                                <option value="">-- Pilih Dokter --</option>
+                                @foreach ($dokters as $dokter)
+                                    <option value="{{ $dokter->id }}"
+                                        {{ old('dokter_id', $pasien->dokter_id) == $dokter->id ? 'selected' : '' }}>
+                                        {{ $dokter->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
 
                     <div class="flex justify-end">
                         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">

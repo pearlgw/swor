@@ -34,8 +34,13 @@ class HasilMonitoringController extends Controller
 
     public function create()
     {
-        $pasiens = Pasien::latest()->get();
-        $dokters = User::where('email', '!=', 'admin1@gmail.com')
+        if (Auth::user()->is_admin === 1) {
+            $pasiens = Pasien::latest()->get();
+        } else {
+            $pasiens = Pasien::where('dokter_id', Auth::id())->latest()->get();
+        }
+
+        $dokters = User::where('is_admin', false)
             ->latest()->get();
         return view('monitoring.create', compact('pasiens', 'dokters'));
     }
@@ -77,10 +82,15 @@ class HasilMonitoringController extends Controller
     public function edit($id)
     {
         $monitoring = HasilMonitoring::findOrFail($id);
-        $pasiens = Pasien::latest()->get();
-        $dokters = User::where('email', '!=', 'admin1@gmail.com')
+        // if (Auth::user()->is_admin === 1) {
+        //     $pasiens = Pasien::latest()->get();
+        // } else {
+        //     $pasiens = Pasien::where('dokter_id', Auth::id())->latest()->get();
+        // }
+
+        $dokters = User::where('is_admin', false)
             ->latest()->get();
-        return view('monitoring.edit', compact('monitoring', 'pasiens', 'dokters'));
+        return view('monitoring.edit', compact('monitoring', 'dokters'));
     }
 
     public function update(Request $request, $id)
@@ -90,7 +100,7 @@ class HasilMonitoringController extends Controller
 
         // Validasi request
         $validated = $request->validate([
-            'pasien_id'          => 'required|exists:pasiens,id',
+            // 'pasien_id'          => 'required|exists:pasiens,id',
             'dokter_id'          => 'required|exists:users,id',
             'tinggi_shoulder'    => 'nullable|numeric',
             'sudut_tangan'       => 'nullable|numeric',

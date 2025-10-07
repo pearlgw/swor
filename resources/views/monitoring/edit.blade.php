@@ -13,7 +13,7 @@
                     @method('PUT')
 
                     {{-- Pasien --}}
-                    <div>
+                    {{-- <div>
                         <label class="block font-medium">Pasien</label>
                         <select name="pasien_id" class="w-full rounded border-gray-300">
                             <option value="">-- Pilih Pasien --</option>
@@ -27,7 +27,7 @@
                         @error('pasien_id')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     @if (Auth::user()->is_admin === 0)
                         <input type="hidden" name="dokter_id" value="{{ $monitoring->dokter_id ?? Auth::id() }}">

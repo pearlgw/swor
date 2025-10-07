@@ -12,21 +12,39 @@
                     @csrf
 
                     {{-- Pasien --}}
-                    <div>
-                        <label class="block font-medium">Pasien</label>
-                        <select name="pasien_id" class="w-full rounded border-gray-300">
-                            <option value="">-- Pilih Pasien --</option>
-                            @foreach ($pasiens as $pasien)
-                                <option value="{{ $pasien->id }}"
-                                    {{ old('pasien_id') == $pasien->id ? 'selected' : '' }}>
-                                    {{ $pasien->nama }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('pasien_id')
-                            <p class="text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    @if (Auth::user()->is_admin === 0)
+                        <div>
+                            <label class="block font-medium">Pasien</label>
+                            <select name="pasien_id" class="w-full rounded border-gray-300">
+                                <option value="">-- Pilih Pasien --</option>
+                                @foreach ($pasiens as $pasien)
+                                    <option value="{{ $pasien->id }}"
+                                        {{ old('pasien_id') == $pasien->id ? 'selected' : '' }}>
+                                        {{ $pasien->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('pasien_id')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    @elseif (Auth::user()->is_admin === 1)
+                        <div>
+                            <label class="block font-medium">Pasien</label>
+                            <select name="pasien_id" class="w-full rounded border-gray-300">
+                                <option value="">-- Pilih Pasien --</option>
+                                @foreach ($pasiens as $pasien)
+                                    <option value="{{ $pasien->id }}"
+                                        {{ old('pasien_id') == $pasien->id ? 'selected' : '' }}>
+                                        {{ $pasien->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('pasien_id')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    @endif
 
                     {{-- Dokter --}}
                     @if (Auth::user()->is_admin === 0)
@@ -142,7 +160,8 @@
                         <label class="block font-medium">Status</label>
                         <select name="status" class="w-full rounded border-gray-300">
                             <option value="">-- Pilih Status --</option>
-                            <option value="selesai" {{ old('status') == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                            <option value="selesai" {{ old('status') == 'selesai' ? 'selected' : '' }}>Selesai
+                            </option>
                             <option value="berlangsung" {{ old('status') == 'berlangsung' ? 'selected' : '' }}>
                                 Berlangsung</option>
                             <option value="batal" {{ old('status') == 'batal' ? 'selected' : '' }}>Batal</option>

@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $dokters = User::where('email', '!=', 'admin1@gmail.com')
+        $dokters = User::where('is_admin', false)
             ->latest()
             ->paginate(10);
         return view('dokter.index', compact('dokters'));

@@ -8,3 +8,5 @@ Route::prefix('v1')->middleware('api.token')->group(function () {
     Route::get('/pasien', [PasienController::class, 'getAllPasien']);
     Route::post('/monitoring', [HasilMonitoringController::class, 'store']);
 });
+
+Route::get('/monitoring', [HasilMonitoringController::class, 'index']);

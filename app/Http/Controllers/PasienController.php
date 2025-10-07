@@ -35,7 +35,7 @@ class PasienController extends Controller
 
     public function create()
     {
-        $dokters = User::where('email', '!=', 'admin1@gmail.com')
+        $dokters = User::where('is_admin', false)
             ->latest()->get();
         return view('pasien.create', compact('dokters'));
     }
@@ -112,6 +112,10 @@ class PasienController extends Controller
         $nextNumber = $lastPasien ? ((int) substr($lastPasien->kode_pasien, 4)) + 1 : 1;
         $kodePasien = 'PSN-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
+        $dokterId = Auth::user()->is_admin === 0
+            ? Auth::id()
+            : $request->dokter_id;
+
         Pasien::create([
             'kode_pasien' => $kodePasien,
             'nama' => $request->nama,
@@ -122,7 +126,7 @@ class PasienController extends Controller
             'riwayat_penyakit' => $request->riwayat_penyakit,
             'tanggal_sakit' => $request->tanggal_sakit,
             'tanggal_mulai_terapi' => $request->tanggal_mulai_terapi,
-            'dokter_id' => $request->dokter_id,
+            'dokter_id' => $dokterId,
         ]);
 
         return redirect()->route('pasien.index')->with('success', 'Pasien berhasil ditambahkan.');
@@ -131,7 +135,7 @@ class PasienController extends Controller
     public function edit($id)
     {
         $pasien = Pasien::findOrFail($id);
-        $dokters = User::where('email', '!=', 'admin1@gmail.com')
+        $dokters = User::where('is_admin', false)
             ->latest()->get();
         return view('pasien.edit', compact('pasien', 'dokters'));
     }
@@ -152,7 +156,21 @@ class PasienController extends Controller
             'dokter_id' => ['nullable', 'exists:users,id'],
         ]);
 
-        $pasien->update($request->all());
+        $dokterId = Auth::user()->is_admin === 0
+            ? Auth::id()
+            : $request->dokter_id;
+
+        $pasien->update([
+            'nama' => $request->nama,
+            'umur' => $request->umur,
+            'metode' => $request->metode,
+            'diagnosa_utama' => $request->diagnosa_utama,
+            'tingkat_hemiparese' => $request->tingkat_hemiparese,
+            'riwayat_penyakit' => $request->riwayat_penyakit,
+            'tanggal_sakit' => $request->tanggal_sakit,
+            'tanggal_mulai_terapi' => $request->tanggal_mulai_terapi,
+            'dokter_id' => $dokterId,
+        ]);
 
         return redirect()->route('pasien.index')->with('success', 'Pasien berhasil diperbarui.');
     }
