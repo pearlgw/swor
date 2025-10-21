@@ -12,26 +12,55 @@ class HasilMonitoringController extends Controller
 {
     public function index()
     {
-        $tenSecondsAgo = Carbon::now()->subSeconds(20);
-
-        // Ambil satu data monitoring terbaru dalam 10 detik terakhir
-        $monitoring = HasilMonitoring::where('created_at', '>=', $tenSecondsAgo)
-            ->latest('created_at')
+        // Ambil data terbaru yang mengalami perubahan di 5 field tertentu
+        $updatedMonitoring = HasilMonitoring::whereNotNull('last_changed_field')
+            ->where(function ($query) {
+                $query->where('last_changed_field', 'LIKE', '%tinggi_shoulder%')
+                    ->orWhere('last_changed_field', 'LIKE', '%sudut_tangan%')
+                    ->orWhere('last_changed_field', 'LIKE', '%kecepatan%')
+                    ->orWhere('last_changed_field', 'LIKE', '%mode%')
+                    ->orWhere('last_changed_field', 'LIKE', '%mode_tangan%');
+            })
+            ->orderByDesc('updated_at')
             ->first();
 
-        // Jika tidak ada data yang masih dalam 10 detik, kembalikan kosong
-        if (!$monitoring) {
+        // Ambil data terbaru berdasarkan waktu pembuatan
+        $latestMonitoring = HasilMonitoring::latest('created_at')->first();
+
+        // Jika ada update valid di 5 field tertentu, tampilkan itu
+        if ($updatedMonitoring && $updatedMonitoring->updated_at > $latestMonitoring->created_at) {
             return response()->json([
-                'message' => 'Tidak ada data monitoring terbaru dalam 10 detik terakhir.',
-                'data' => null,
-            ], 404);
+                'message' => 'Data monitoring terbaru berdasarkan perubahan field tertentu.',
+                'data' => $updatedMonitoring,
+            ], 200);
         }
 
-        // Kalau ada, kirim datanya
+        // Jika tidak ada update di 5 field tersebut, tampilkan data terbaru berdasarkan created_at
         return response()->json([
-            'message' => 'Data monitoring terbaru ditemukan.',
-            'data' => $monitoring,
+            'message' => 'Data monitoring terbaru berdasarkan waktu pembuatan.',
+            'data' => $latestMonitoring,
         ], 200);
+
+        // $tenSecondsAgo = Carbon::now()->subSeconds(20);
+
+        // // Ambil satu data monitoring terbaru dalam 10 detik terakhir
+        // $monitoring = HasilMonitoring::where('created_at', '>=', $tenSecondsAgo)
+        //     ->latest('created_at')
+        //     ->first();
+
+        // // Jika tidak ada data yang masih dalam 10 detik, kembalikan kosong
+        // if (!$monitoring) {
+        //     return response()->json([
+        //         'message' => 'Tidak ada data monitoring terbaru dalam 10 detik terakhir.',
+        //         'data' => null,
+        //     ], 404);
+        // }
+
+        // // Kalau ada, kirim datanya
+        // return response()->json([
+        //     'message' => 'Data monitoring terbaru ditemukan.',
+        //     'data' => $monitoring,
+        // ], 200);
     }
 
     public function store(Request $request)
