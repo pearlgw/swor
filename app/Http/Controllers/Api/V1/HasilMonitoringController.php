@@ -14,6 +14,7 @@ class HasilMonitoringController extends Controller
     {
         // Ambil data terbaru yang mengalami perubahan di 5 field tertentu
         $updatedMonitoring = HasilMonitoring::whereNotNull('last_changed_field')
+            ->where('status', 'berlangsung')
             ->where(function ($query) {
                 $query->where('last_changed_field', 'LIKE', '%tinggi_shoulder%')
                     ->orWhere('last_changed_field', 'LIKE', '%sudut_tangan%')
@@ -25,7 +26,7 @@ class HasilMonitoringController extends Controller
             ->first();
 
         // Ambil data terbaru berdasarkan waktu pembuatan
-        $latestMonitoring = HasilMonitoring::latest('created_at')->first();
+        $latestMonitoring = HasilMonitoring::where('status', 'berlangsung')->latest('created_at')->first();
 
         // Jika ada update valid di 5 field tertentu, tampilkan itu
         if ($updatedMonitoring && $updatedMonitoring->updated_at > $latestMonitoring->created_at) {
@@ -40,27 +41,6 @@ class HasilMonitoringController extends Controller
             'message' => 'Data monitoring terbaru berdasarkan waktu pembuatan.',
             'data' => $latestMonitoring,
         ], 200);
-
-        // $tenSecondsAgo = Carbon::now()->subSeconds(20);
-
-        // // Ambil satu data monitoring terbaru dalam 10 detik terakhir
-        // $monitoring = HasilMonitoring::where('created_at', '>=', $tenSecondsAgo)
-        //     ->latest('created_at')
-        //     ->first();
-
-        // // Jika tidak ada data yang masih dalam 10 detik, kembalikan kosong
-        // if (!$monitoring) {
-        //     return response()->json([
-        //         'message' => 'Tidak ada data monitoring terbaru dalam 10 detik terakhir.',
-        //         'data' => null,
-        //     ], 404);
-        // }
-
-        // // Kalau ada, kirim datanya
-        // return response()->json([
-        //     'message' => 'Data monitoring terbaru ditemukan.',
-        //     'data' => $monitoring,
-        // ], 200);
     }
 
     public function store(Request $request)
