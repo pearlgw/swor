@@ -186,6 +186,13 @@
                         </select>
                     </div>
 
+                    {{-- Waktu Terapi --}}
+                    <div>
+                        <label class="block font-medium">Waktu Terapi</label>
+                        <input type="datetime-local" name="waktu_terapi" class="w-full rounded border-gray-300"
+                            value="{{ old('waktu_terapi') }}">
+                    </div>
+
                     <div class="flex justify-end">
                         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">
                             Simpan

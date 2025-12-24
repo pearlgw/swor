@@ -84,10 +84,13 @@
                 .then(res => {
                     if (chart) chart.destroy();
 
+                    // Ubah labels dari backend menjadi "Terapi ke-1", "Terapi ke-2", dst
+                    const terapiLabels = res.labels.map((label, index) => `Terapi ke-${index + 1}`);
+
                     chart = new Chart(ctx, {
                         type: 'line',
                         data: {
-                            labels: res.labels,
+                            labels: terapiLabels,
                             datasets: [{
                                 label: 'Sudut Tangan',
                                 data: res.data,
@@ -100,6 +103,41 @@
                         options: {
                             animation: {
                                 duration: 1000
+                            },
+                            scales: {
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Sudut °',
+                                        font: {
+                                            size: 14,
+                                            weight: 'bold'
+                                        },
+                                        padding: {
+                                            bottom: 10
+                                        }
+                                    },
+                                    beginAtZero: true
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Keterangan Waktu',
+                                        font: {
+                                            size: 14,
+                                            weight: 'bold'
+                                        },
+                                        padding: {
+                                            top: 10
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'top'
+                                }
                             }
                         }
                     });

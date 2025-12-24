@@ -64,9 +64,15 @@ class HasilMonitoringController extends Controller
             'jam_mulai'          => 'nullable|date_format:H:i',
             'jam_selesai'        => 'nullable|date_format:H:i|after_or_equal:jam_mulai',
             'status'             => 'nullable|string|max:50',
+            'waktu_terapi'       => 'nullable|date',
         ]);
 
-        HasilMonitoring::create($request->all());
+        $data = $request->except('waktu_terapi');
+        if ($request->filled('waktu_terapi')) {
+            $data['created_at'] = $request->waktu_terapi;
+        }
+
+        HasilMonitoring::create($data);
 
         return redirect()->route('monitoring.index')
             ->with('success', 'Data monitoring berhasil ditambahkan.');
@@ -116,9 +122,18 @@ class HasilMonitoringController extends Controller
             'jam_mulai'          => 'nullable|date_format:H:i',
             'jam_selesai'        => 'nullable|date_format:H:i|after_or_equal:jam_mulai',
             'status'             => 'required|in:selesai,berlangsung,batal',
+            'waktu_terapi'       => 'nullable|date',
         ]);
 
-        $monitoring->update($validated);
+        $data = collect($validated)->except('waktu_terapi')->toArray(); // Ambil semua kecuali waktu_terapi
+
+        // Jika waktu_terapi diisi, update created_at
+        if ($request->filled('waktu_terapi')) {
+            $data['created_at'] = $request->waktu_terapi;
+        }
+        // Jika tidak diisi, biarkan created_at tetap seperti semula (tidak diubah)
+
+        $monitoring->update($data);
 
         return redirect()
             ->route('monitoring.index')

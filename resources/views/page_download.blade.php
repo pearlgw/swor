@@ -94,7 +94,7 @@
 
     <header>
         <h1>Monitoring SWOR</h1>
-        <p>Rumah Sakit Rehabilitasi Neurologi</p>
+        <p>Universitas Dian Nuswantoro</p>
         <p>Bulan: {{ \Carbon\Carbon::parse($month)->translatedFormat('F Y') }}</p>
     </header>
 
@@ -152,7 +152,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Minggu Ke</th>
+                    <th>Terapi Ke</th>
                     <th>Tanggal</th>
                     <th>Jam Mulai - Jam Selesai</th>
                     <th>Sudut Tangan</th>
@@ -161,14 +161,15 @@
             <tbody>
                 @forelse ($item['monitorings'] as $monitoring)
                     <tr>
-                        <td>{{ $monitoring->minggu }}</td>
-                        <td>{{ \Carbon\Carbon::parse($monitoring->created_at)->format('d-m-Y') }}</td>
+                        {{-- <td>{{ $monitoring->minggu }}</td> --}}
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ \Carbon\Carbon::parse($monitoring->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</td>
                         <td>
                             {{ $monitoring->jam_mulai ? \Carbon\Carbon::parse($monitoring->jam_mulai)->format('H:i') : '-' }}
                             -
                             {{ $monitoring->jam_selesai ? \Carbon\Carbon::parse($monitoring->jam_selesai)->format('H:i') : '-' }}
                         </td>
-                        <td>{{ $monitoring->sudut_tangan ?? '-' }}</td>
+                        <td>{{ $monitoring->sudut_tangan ?? '-' }}°</td>
                     </tr>
                 @empty
                     <tr>
@@ -180,7 +181,7 @@
     @endforeach
 
     <footer>
-        &copy; {{ date('Y') }} Rumah Sakit Rehabilitasi Neurologi - Monitoring SWOR
+        &copy; {{ date('Y') }} Universitas Dian Nuswantoro - Monitoring SWOR
     </footer>
 
 </body>
